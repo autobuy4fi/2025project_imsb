@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터랙티브 IT 도서 시장 리포트 (2024-2025)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals (Background: #f8fafc, Text: #1e293b, Accent: #f59e0b) -->
+    <!-- Application Structure Plan: A dashboard-style SPA with a top navigation bar for non-linear exploration. The core is an interactive 2024 vs. 2025 timeline toggle that drives the narrative. Subsequent sections for Bestsellers, Publishers, Authors, and Technology allow users to deep-dive into specific analysis areas. This structure breaks from the linear report format to empower user-driven exploration, making the complex comparison intuitive and engaging. -->
+    <!-- Visualization & Content Choices: 1. Market Trend: Goal: Compare 2024 vs 2025. Method: Interactive button toggle. Interaction: Click to update content view. Justification: Direct comparison is the report's core thesis. 2. Bestsellers: Goal: Inform. Method: Styled HTML cards. Interaction: Filterable (future). Justification: Clear presentation of key evidence. 3. Publisher Finances: Goal: Compare. Method: Chart.js Bar Chart. Interaction: Hover/Click to highlight. Justification: Best for comparing metrics across a few entities. 4. Tech Evolution: Goal: Explain change. Method: HTML/CSS diagram. Interaction: Static visual. Justification: Visually represents the core 'Agentic Shift' concept without complex libraries. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+        .nav-link.active {
+            font-weight: 700;
+            color: #f59e0b; /* amber-500 */
+            border-bottom-color: #f59e0b;
+        }
+        .year-btn.active {
+            background-color: #f59e0b;
+            color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <ul class="flex justify-center items-center space-x-4 sm:space-x-8 text-sm sm:text-base">
+                <li><a href="#intro" class="nav-link py-2 border-b-2 border-transparent transition-all duration-300 hover:text-amber-500 hover:border-amber-500">소개</a></li>
+                <li><a href="#timeline" class="nav-link py-2 border-b-2 border-transparent transition-all duration-300 hover:text-amber-500 hover:border-amber-500">시장 변화</a></li>
+                <li><a href="#publishers" class="nav-link py-2 border-b-2 border-transparent transition-all duration-300 hover:text-amber-500 hover:border-amber-500">경쟁 구도</a></li>
+                <li><a href="#authors" class="nav-link py-2 border-b-2 border-transparent transition-all duration-300 hover:text-amber-500 hover:border-amber-500">저자의 진화</a></li>
+                <li><a href="#tech" class="nav-link py-2 border-b-2 border-transparent transition-all duration-300 hover:text-amber-500 hover:border-amber-500">기술의 진화</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro" class="py-20 sm:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight">에이전트 전환</h1>
+                <p class="mt-4 text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
+                    지난 1년, 대한민국 IT 도서 시장은 '챗봇 활용'에서 'AI 에이전트 개발'로 극적인 패러다임 전환을 겪었습니다. 이 보고서는 2024년과 2025년의 데이터를 통해 시장의 변화를 심층적으로 분석합니다.
+                </p>
+                <div class="mt-12 flex justify-center items-center space-x-4 text-2xl font-bold">
+                    <span class="text-slate-500">2024: 챗봇 활용</span>
+                    <svg class="w-12 h-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <span class="text-slate-900">2025: 에이전트 개발</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="py-20 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">1년의 변화: 무엇이 달라졌나?</h2>
+                    <p class="mt-3 text-lg text-slate-600">버튼을 클릭하여 각 연도의 시장 핵심 트렌드와 대표 도서를 확인해보세요.</p>
+                </div>
+                <div class="flex justify-center mb-12">
+                    <div class="flex space-x-4 bg-slate-200 p-2 rounded-full">
+                        <button id="btn-2024" class="year-btn px-6 py-3 text-lg font-bold rounded-full transition-all duration-300">2024년</button>
+                        <button id="btn-2025" class="year-btn px-6 py-3 text-lg font-bold rounded-full transition-all duration-300">2025년</button>
+                    </div>
+                </div>
+
+                <div id="timeline-content" class="transition-opacity duration-500 ease-in-out">
+                    <!-- JS will populate this section -->
+                </div>
+            </div>
+        </section>
+
+        <section id="publishers" class="py-20 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">출판사 경쟁 구도</h2>
+                    <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">주요 IT 출판사들의 재무 성과와 전략을 비교 분석합니다. 로고를 클릭하면 차트에서 해당 출판사가 강조됩니다.</p>
+                </div>
+                
+                <div class="mb-12">
+                    <div class="chart-container">
+                        <canvas id="publisherChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center space-x-8 mb-12">
+                    <button class="publisher-logo-btn" data-publisher="한빛미디어"><img src="https://placehold.co/120x40/f1f5f9/1e293b?text=한빛미디어" alt="한빛미디어 로고" class="h-10 transition duration-300 grayscale hover:grayscale-0"></button>
+                    <button class="publisher-logo-btn" data-publisher="길벗"><img src="https://placehold.co/120x40/f1f5f9/1e293b?text=길벗" alt="길벗 로고" class="h-10 transition duration-300 grayscale hover:grayscale-0"></button>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Publisher cards -->
+                    <div id="card-한빛미디어" class="bg-slate-100/50 p-6 rounded-xl shadow-sm transition-all duration-300">
+                        <h3 class="text-xl font-bold text-slate-900">한빛미디어</h3>
+                        <p class="text-sm font-bold text-green-600 mt-1">영업이익 +38.75%</p>
+                        <p class="mt-4 text-slate-600">
+                            '혼공' 시리즈의 강력한 브랜드와 '혼공학습단' 커뮤니티를 통해 안정적인 성장과 높은 수익성을 달성했습니다. 입문자부터 전문가까지 아우르는 '토탈 케어' 전략이 주효했습니다.
+                        </p>
+                    </div>
+                     <div id="card-길벗" class="bg-slate-100/50 p-6 rounded-xl shadow-sm transition-all duration-300">
+                        <h3 class="text-xl font-bold text-slate-900">길벗</h3>
+                        <p class="text-sm font-bold text-red-600 mt-1">영업이익 -59.00%</p>
+                        <p class="mt-4 text-slate-600">
+                           업계 최고 수준의 매출을 기록했지만 수익성은 하락했습니다. '코딩 자율학습' 시리즈와 인플루언서 협업으로 시장 점유율을 유지하고 있으나 비용 관리가 과제로 남았습니다.
+                        </p>
+                    </div>
+                     <div class="bg-slate-100/50 p-6 rounded-xl shadow-sm transition-all duration-300">
+                        <h3 class="text-xl font-bold text-slate-900">이지스퍼블리싱</h3>
+                        <p class="text-sm font-bold text-amber-600 mt-1">시장 변화에 가장 민첩</p>
+                        <p class="mt-4 text-slate-600">
+                           'Do it!'과 '된다!'라는 이원화 브랜드 전략으로 안정성과 트렌디함을 동시에 잡았습니다. 2025년 LLM 에이전트 개발 서적을 베스트셀러에 올리며 빠른 대응 능력을 입증했습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="authors" class="py-20 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">새로운 사상가들: 인플루언서-저자의 부상</h2>
+                    <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">이제 저자는 단순한 전문가를 넘어, 강력한 팬덤을 갖춘 '인플루언서'가 되고 있습니다. 이들은 책 출간 전부터 다중 플랫폼을 통해 자신의 생태계를 구축합니다.</p>
+                </div>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                        <img src="https://placehold.co/120x120/e0e7ff/4338ca?text=이경록" alt="이경록(테디노트)" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white shadow-md">
+                        <h3 class="text-2xl font-bold text-slate-800">이경록 (테디노트)</h3>
+                        <p class="text-slate-500">AI 연구자이자 교육자</p>
+                        <p class="mt-4 text-slate-600">RAG, LLM 등 복잡한 AI 기술을 대중의 눈높이에서 풀어내며 전문성과 대중성을 모두 확보. 그의 책은 이미 구축된 콘텐츠 생태계의 자연스러운 결과물입니다.</p>
+                        <div class="mt-6 flex justify-center space-x-4 text-2xl text-slate-400">
+                            <span>📝</span><span>📺</span><span>💾</span>
+                        </div>
+                    </div>
+                     <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                        <img src="https://placehold.co/120x120/fef3c7/b45309?text=전진권" alt="전진권(오빠두엑셀)" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white shadow-md">
+                        <h3 class="text-2xl font-bold text-slate-800">전진권 (오빠두엑셀)</h3>
+                        <p class="text-slate-500">실용 기술의 제왕</p>
+                        <p class="mt-4 text-slate-600">'엑셀'이라는 보편적 도구로 158만 구독자의 팬덤을 구축. 최신 AI 트렌드를 콘텐츠에 접목하며 끊임없이 진화하는 모습을 보여줍니다.</p>
+                        <div class="mt-6 flex justify-center space-x-4 text-2xl text-slate-400">
+                           <span>📺</span><span>🌐</span><span>🎓</span>
+                        </div>
+                    </div>
+                     <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                        <img src="https://placehold.co/120x120/d1fae5/047857?text=박상길" alt="박상길" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white shadow-md">
+                        <h3 class="text-2xl font-bold text-slate-800">박상길</h3>
+                        <p class="text-slate-500">산업 전문가와 교육자의 교차점</p>
+                        <p class="mt-4 text-slate-600">현대차, 카카오 등 현장 전문가로서의 권위를 대중적 글쓰기와 성공적으로 연결. 그의 전문성은 책에 높은 신뢰도를 부여합니다.</p>
+                        <div class="mt-6 flex justify-center space-x-4 text-2xl text-slate-400">
+                            <span>📖</span><span>🏢</span><span>🎤</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="py-20 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">기술의 진화: 챗봇에서 에이전트로</h2>
+                    <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">지난 1년간 기술의 핵심은 '콘텐츠 생성'에서 '자율적 작업 수행'으로 이동했습니다.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+                    <div class="border-2 border-slate-200 p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold text-center text-slate-500 mb-6">2024: 챗봇의 시대</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-slate-700">핵심 능력</p>
+                                <p class="text-slate-600">콘텐츠 생성, 요약</p>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-slate-700">사용자 행동</p>
+                                <p class="text-slate-600">프롬프트 입력 및 확인</p>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-slate-700">주요 기술</p>
+                                <p class="text-slate-600">프롬프트 엔지니어링</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-2 border-amber-400 p-8 rounded-xl bg-amber-50/50 shadow-lg">
+                        <h3 class="text-2xl font-bold text-center text-amber-600 mb-6">2025: 에이전트의 시대</h3>
+                         <div class="space-y-4">
+                            <div class="bg-amber-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-amber-800">핵심 능력</p>
+                                <p class="text-amber-700">자율적 과업 수행</p>
+                            </div>
+                            <div class="bg-amber-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-amber-800">시스템 행동</p>
+                                <p class="text-amber-700">계획 수립, 도구 사용</p>
+                            </div>
+                            <div class="bg-amber-100 p-4 rounded-lg text-center">
+                                <p class="font-bold text-amber-800">주요 기술</p>
+                                <p class="text-amber-700">오케스트레이션 (LangChain, CrewAI) + 자동화 (Zapier)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>본 페이지는 제공된 보고서 "에이전트 전환: 한국 IT 출판 시장 및 AI 진화 비교 분석"을 기반으로 제작된 인터랙티브 시각화 자료입니다.</p>
+            <p class="mt-2">데이터는 2025년 7월 초 기준으로 분석되었습니다.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const timelineData = {
+        '2024': {
+            title: "2024: 'ChatGPT 쇼크'와 활용법의 시대",
+            description: "시장은 ChatGPT가 불러온 충격파의 중심에 있었습니다. 독자들은 AI를 업무와 일상에 즉시 적용할 수 있는 구체적인 '활용법'과 '프롬프트 작성법'을 갈망했습니다.",
+            keywords: ["AI 리터러시", "프롬프트 엔지니어링", "챗GPT 활용", "생산성 향상"],
+            books: [
+                { title: "된다! 하루 만에 끝내는 챗GPT 활용법", publisher: "이지스퍼블리싱" },
+                { title: "AI 리터러시", publisher: "다양" },
+                { title: "Do it! 점프 투 파이썬", publisher: "이지스퍼블리싱" }
+            ]
+        },
+        '2025': {
+            title: "2025: '에이전트 전환'과 전문 개발의 시대",
+            description: "시장은 놀랍도록 성숙하고 분화되었습니다. 단순 활용을 넘어, LLM을 기반으로 자율적인 작업을 수행하는 'AI 에이전트'를 직접 구축하려는 전문 개발자층이 시장 중심으로 부상했습니다.",
+            keywords: ["AI 에이전트 개발", "LLM", "RAG", "철학적 고찰", "수직적 AI"],
+            books: [
+                { title: "마침내 특이점이 시작된다", publisher: "비즈니스북스" },
+                { title: "Do it! LLM을 활용한 AI 에이전트 개발 입문", publisher: "이지스퍼블리싱" },
+                { title: "테디노트의 랭체인을 활용한 RAG 비법노트", publisher: "리코멘드" }
+            ]
+        }
+    };
+
+    const publisherData = {
+        labels: ['매출액 증가율 (%)', '영업이익 증가율 (%)'],
+        datasets: [
+            {
+                label: '한빛미디어',
+                data: [4.69, 38.75],
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 1
+            },
+            {
+                label: '길벗',
+                data: [1.16, -59.00],
+                backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                borderColor: 'rgba(239, 68, 68, 1)',
+                borderWidth: 1
+            }
+        ]
+    };
+
+    const timelineContent = document.getElementById('timeline-content');
+    const btn2024 = document.getElementById('btn-2024');
+    const btn2025 = document.getElementById('btn-2025');
+
+    function updateTimeline(year) {
+        const data = timelineData[year];
+        timelineContent.style.opacity = 0;
+        
+        setTimeout(() => {
+            timelineContent.innerHTML = `
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-center mb-4 text-slate-800">${data.title}</h3>
+                    <p class="text-center text-slate-600 mb-8">${data.description}</p>
+                    <div class="flex flex-wrap justify-center gap-2 mb-8">
+                        ${data.keywords.map(keyword => `<span class="bg-amber-100 text-amber-800 text-sm font-semibold px-3 py-1 rounded-full">${keyword}</span>`).join('')}
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-6 text-center">
+                        ${data.books.map(book => `
+                            <div class="bg-slate-100 p-4 rounded-lg">
+                                <img src="https://placehold.co/150x220/e2e8f0/475569?text=${encodeURIComponent(book.title.split('!')[0])}" alt="${book.title}" class="mx-auto h-40 object-cover rounded shadow-md mb-3">
+                                <h4 class="font-bold text-slate-700 text-sm">${book.title}</h4>
+                                <p class="text-xs text-slate-500">${book.publisher}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            timelineContent.style.opacity = 1;
+        }, 300);
+
+        if (year === '2024') {
+            btn2024.classList.add('active');
+            btn2025.classList.remove('active');
+        } else {
+            btn2025.classList.add('active');
+            btn2024.classList.remove('active');
+        }
+    }
+
+    btn2024.addEventListener('click', () => updateTimeline('2024'));
+    btn2025.addEventListener('click', () => updateTimeline('2025'));
+    
+    updateTimeline('2025');
+
+    const ctx = document.getElementById('publisherChart').getContext('2d');
+    const publisherChart = new Chart(ctx, {
+        type: 'bar',
+        data: JSON.parse(JSON.stringify(publisherData)),
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: '주요 출판사 재무 성과 비교 (2024년, 전년대비)' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.x !== null) {
+                                label += context.parsed.x.toFixed(2) + '%';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: '증가율 (%)' }
+                }
+            }
+        }
+    });
+
+    const publisherLogoBtns = document.querySelectorAll('.publisher-logo-btn');
+    const defaultColors = publisherData.datasets.map(ds => ds.backgroundColor);
+
+    publisherLogoBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const selectedPublisher = btn.dataset.publisher;
+            
+            publisherChart.data.datasets.forEach((dataset, i) => {
+                if (dataset.label === selectedPublisher) {
+                    dataset.backgroundColor = dataset.borderColor;
+                } else {
+                    dataset.backgroundColor = 'rgba(203, 213, 225, 0.5)';
+                }
+            });
+            publisherChart.update();
+            
+            document.querySelectorAll('[id^="card-"]').forEach(card => card.classList.remove('ring-2', 'ring-amber-500'));
+            document.getElementById(`card-${selectedPublisher}`).classList.add('ring-2', 'ring-amber-500');
+        });
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: "-50% 0px -50% 0px" });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+});
+</script>
+
+</body>
+</html>

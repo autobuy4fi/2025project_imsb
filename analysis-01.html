@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025년 상반기 도서 판매 동향 | SPA 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <!--
+      Narrative & Structure Plan:
+      1.  Header: Title and the main KPI (Total Sales Volume).
+      2.  Market Share Overview: A donut chart to show the composition of the market at a glance. Goal: Compare.
+      3.  Sales Volume Ranking: An ordered horizontal bar chart to compare the absolute sales figures for each category. Goal: Organize & Compare.
+      4.  In-Depth Analysis: Feature cards for the top categories, providing qualitative insights and key book titles. Goal: Inform.
+      5.  Footer: Concluding remarks.
+      
+      Visualization Choices (NO SVG, NO Mermaid JS):
+      - Data: Total Market Share -> Goal: Compare -> Visualization: Donut Chart -> Justification: Best for showing part-to-whole relationships for a few categories. Method: Chart.js (Canvas).
+      - Data: Sales Volume by Category -> Goal: Organize/Rank -> Visualization: Ordered Horizontal Bar Chart -> Justification: Best for precise comparison and ranking of values. Method: Chart.js (Canvas).
+      - Data: Qualitative Analysis -> Goal: Inform -> Visualization: Styled Text Cards -> Justification: Provides necessary context and narrative that charts cannot. Method: HTML/CSS with Tailwind.
+
+      Color Palette Selection: "Energetic & Playful" for a modern and engaging feel.
+      Selected HEX Codes: #005F73, #0A9396, #94D2BD, #E9D8A6, #EE9B00
+    -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            width: 100%;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #005F73, #0A9396);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .kpi-number {
+            font-weight: 900;
+            font-size: 4rem;
+        }
+        @media (max-width: 768px) {
+            .kpi-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-8 md:my-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">2025년 상반기 도서 판매 동향</h1>
+            <p class="text-lg md:text-xl text-gray-600">데이터로 살펴보는 시장의 흐름과 인사이트</p>
+        </header>
+
+        <section id="kpi" class="my-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center max-w-3xl mx-auto">
+                <p class="text-2xl font-bold text-gray-500 mb-2">2025년 상반기 총 판매 부수</p>
+                <p class="kpi-number text-gradient">37,140<span class="text-3xl font-bold ml-2">부</span></p>
+                <p class="mt-4 text-gray-600">상반기 시장은 '생성형 AI'와 '콘텐츠 제작'이라는 두 가지 키워드가 성장을 주도했습니다.</p>
+            </div>
+        </section>
+
+        <main class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-1">분야별 판매 점유율</h2>
+                <p class="text-gray-600 mb-6">시장의 구성을 한눈에 파악해 보세요.</p>
+                <div class="chart-container h-80 md:h-96">
+                    <canvas id="marketShareDonutChart"></canvas>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-1">분야별 판매 부수 비교</h2>
+                <p class="text-gray-600 mb-6">각 분야의 실질적인 판매량을 비교하여 순위를 확인합니다.</p>
+                <div class="chart-container h-80 md:h-96">
+                    <canvas id="salesVolumeBarChart"></canvas>
+                </div>
+            </div>
+
+        </main>
+
+        <section id="analysis" class="my-12">
+            <h2 class="text-3xl font-bold text-center mb-8">주요 분야 심층 분석</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                    <div class="flex-grow">
+                        <p class="text-5xl mb-4">🥇</p>
+                        <h3 class="text-xl font-bold mb-2">1위: 생성형 AI</h3>
+                        <p class="text-gray-600 mb-4">전체 시장의 30.9%를 차지하며 압도적인 1위를 기록했습니다. 기술에 대한 높은 사회적 관심이 판매로 직결되었으며, 입문자부터 전문가까지 다양한 독자층을 흡수했습니다.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">주요 도서</h4>
+                        <span class="inline-block bg-teal-100 text-teal-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#챗GPT 시리즈</span>
+                        <span class="inline-block bg-teal-100 text-teal-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#생성형AI_사진&이미지</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                     <div class="flex-grow">
+                        <p class="text-5xl mb-4">🥈</p>
+                        <h3 class="text-xl font-bold mb-2">2위: SNS/콘텐츠 제작</h3>
+                        <p class="text-gray-600 mb-4">27.0%의 점유율로 1인 미디어와 디지털 콘텐츠 제작에 대한 꾸준한 수요를 증명했습니다. 특히 쇼츠와 같은 숏폼 콘텐츠 제작법이 큰 인기를 끌었습니다.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">주요 도서</h4>
+                        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#유튜브 쇼츠</span>
+                        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#돈 버는 블로그</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                    <div class="flex-grow">
+                        <p class="text-5xl mb-4">🥉</p>
+                        <h3 class="text-xl font-bold mb-2">3위: IT/개발/기타</h3>
+                        <p class="text-gray-600 mb-4">19.1%를 차지하며 전통적인 IT 강자들의 저력을 보여주었습니다. 데이터 과학, AI 교육 활용법 등 전문 기술 분야가 판매를 견인했습니다.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">주요 도서</h4>
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#AI_학교수업_활용법</span>
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">#데이터 과학</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-16 mb-8">
+            <p class="text-gray-600">&copy; 2025 Book Sales Trend Analysis. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const FONT_STYLE = {
+                family: 'Noto Sans KR',
+                size: 14,
+            };
+
+            const TOOLTIP_PLUGIN_CONFIG = {
+                tooltip: {
+                    bodyFont: FONT_STYLE,
+                    titleFont: FONT_STYLE,
+                    backgroundColor: '#ffffff',
+                    titleColor: '#333333',
+                    bodyColor: '#333333',
+                    borderColor: '#dddddd',
+                    borderWidth: 1,
+                    padding: 10,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                }
+            };
+            
+            const salesData = {
+                labels: ['생성형 AI', 'SNS/콘텐츠 제작', 'IT/개발/기타', '그래픽', '오피스/업무자동화'],
+                percentages: [30.9, 27.0, 19.1, 11.7, 11.3],
+                volumes: [11467, 10033, 7100, 4337, 4203],
+                colors: ['#0A9396', '#94D2BD', '#EE9B00', '#CA6702', '#E9D8A6']
+            };
+
+            const sortedData = salesData.labels.map((label, index) => ({
+                label: label,
+                volume: salesData.volumes[index],
+                color: salesData.colors[salesData.labels.indexOf(label)] 
+            })).sort((a, b) => b.volume - a.volume);
+
+
+            const donutCtx = document.getElementById('marketShareDonutChart').getContext('2d');
+            new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: salesData.labels,
+                    datasets: [{
+                        label: '판매 점유율',
+                        data: salesData.percentages,
+                        backgroundColor: salesData.colors,
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: FONT_STYLE,
+                                padding: 20
+                            }
+                        },
+                        ...TOOLTIP_PLUGIN_CONFIG
+                    }
+                }
+            });
+
+            const barCtx = document.getElementById('salesVolumeBarChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: sortedData.map(d => d.label),
+                    datasets: [{
+                        label: '판매 부수',
+                        data: sortedData.map(d => d.volume),
+                        backgroundColor: sortedData.map(d => d.color),
+                        borderColor: sortedData.map(d => d.color),
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barThickness: 'flex'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                font: FONT_STYLE,
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false,
+                            },
+                            ticks: {
+                                font: FONT_STYLE,
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                         ...TOOLTIP_PLUGIN_CONFIG
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

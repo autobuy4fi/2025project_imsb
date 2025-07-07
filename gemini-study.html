@@ -43,6 +43,16 @@
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.5rem;
         }
+        /* Added styles for the link within h2 */
+        .article-content h2 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease-in-out;
+        }
+        .article-content h2 a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
         .back-link {
             display: inline-block;
             margin-top: 4rem;
@@ -62,8 +72,9 @@
         </header>
         
         <main class="article-content">
-            <h2>1. 첫 번째 주제</h2>
-            <p>이곳에 첫 번째 주제에 대한 내용을 작성합니다. 제미나이 딥 리서치 기능을 활용하여 얻은 정보나 인사이트를 정리해 보세요.</p>
+            <!-- The h2 tag now contains a link -->
+            <h2><a href="article-01.html">1. 24-25년 IT 도서 트렌드 분석</a></h2>
+            <p>2024-2025년 IT 도서 판매 데이터를 분석한 결과를 인사이트로 정리해 보았습니다.</p>
             
             <h2>2. 두 번째 주제</h2>
             <p>두 번째 주제에 대한 내용입니다. 문단은 p 태그를 사용하고, 소제목은 h2 태그를 사용해서 내용을 구조화할 수 있습니다.</p>

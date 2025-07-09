@@ -10,21 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
     <!--
-      Narrative & Structure Plan (Final v3):
-      1.  Header: Title and introduction.
-      2.  Data Guide: Updated info box explaining the new Gross Sales (37,778) vs. Net Sales (37,122).
-      3.  Main KPI: The updated Gross Sales Volume (37,778).
-      4.  Market Share Overview: A donut chart recalculated for the new data. Goal: Compare.
-      5.  Sales Volume Ranking: An ordered horizontal bar chart with new category volumes. Goal: Organize & Compare.
-      6.  In-Depth Analysis: Feature cards updated with insights from the latest meeting minutes. Goal: Inform.
-      7.  Individual Book Sales Ranking: A scrollable table updated with the new top-selling books. Goal: Organize/Inform.
-      8.  Footer: Concluding remarks.
+      Narrative & Structure Plan (YoY Comparison Update):
+      1.  Header, Data Guide, Main KPI remain.
+      2.  Main section with two side-by-side bar charts for 2025 and 2024 volume comparison.
+      3.  Year-over-Year percentage comparison using a grouped bar chart with synchronized and saturation-differentiated colors.
+      4.  Added insight text below the YoY chart.
+      5.  Static Analysis Section.
+      6.  Individual Book Sales Ranking table for 2025.
+      7.  Individual Book Sales Ranking table for 2024.
+      8.  Footer.
       
       Visualization Choices (NO SVG, NO Mermaid JS):
-      - All visualizations are implemented using Chart.js (Canvas) or structured HTML/CSS with Tailwind, adhering to all constraints.
+      - All visualizations use Chart.js (Canvas) or structured HTML/CSS with Tailwind.
 
-      Color Palette Selection: "Energetic & Playful" for a modern and engaging feel.
-      Selected HEX Codes: #005F73, #0A9396, #94D2BD, #E9D8A6, #EE9B00
+      Color Palette Selection: "Energetic & Playful"
     -->
     <style>
         body {
@@ -68,70 +67,74 @@
         <section id="data-guide" class="my-8 max-w-4xl mx-auto">
             <div class="bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-6 rounded-r-lg">
                 <h3 class="font-bold text-xl mb-2">데이터 기준 안내</h3>
-                <p class="text-base">본 인포그래픽의 모든 데이터는 25년 7월 8일 기준 아이피스의 총 판매량(Gross Sales, 37,778부)을 기준으로 작성되었습니다. </p>
+                <p class="text-base">본 인포그래픽의 모든 데이터는 25년 6월 결산자료 종별증감 시트를 기준으로 정리했습니다.</p>
             </div>
         </section>
 
         <section id="kpi" class="my-12">
             <div class="bg-white rounded-2xl shadow-xl p-8 text-center max-w-3xl mx-auto">
                 <p class="text-2xl font-bold text-gray-500 mb-2">2025년 상반기 총 판매 부수 (Gross Sales)</p>
-                <p class="kpi-number text-gradient">37,778<span class="text-3xl font-bold ml-2">부</span></p>
+                <p class="kpi-number text-gradient">40,591<span class="text-3xl font-bold ml-2">부</span></p>
                 <p class="mt-4 text-gray-600">상반기 시장은 '생성형 AI'와 '숏폼 콘텐츠' 관련 도서가 전체 실적을 압도적으로 견인했습니다.</p>
             </div>
         </section>
 
-        <main class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-
-            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl font-bold mb-1">분야별 판매 점유율</h2>
-                <p class="text-gray-600 mb-6">시장의 구성을 한눈에 파악해 보세요.</p>
-                <div class="chart-container h-80 md:h-96">
-                    <canvas id="marketShareDonutChart"></canvas>
-                </div>
-            </div>
-
-            <div class="lg:col-span-3 bg-white rounded-2xl shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl font-bold mb-1">분야별 판매 부수 비교</h2>
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-1">2025년 분야별 판매 부수</h2>
                 <p class="text-gray-600 mb-6">각 분야의 실질적인 판매량을 비교하여 순위를 확인합니다.</p>
-                <div class="chart-container h-80 md:h-96">
-                    <canvas id="salesVolumeBarChart"></canvas>
+                <div class="chart-container h-96">
+                    <canvas id="salesVolumeBarChart2025"></canvas>
                 </div>
             </div>
-
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-1">2024년 분야별 판매 부수</h2>
+                <p class="text-gray-600 mb-6">전년 동기 판매량과 비교해 보세요.</p>
+                <div class="chart-container h-96">
+                    <canvas id="salesVolumeBarChart2024"></canvas>
+                </div>
+            </div>
         </main>
+        
+        <section id="yoy-comparison" class="my-12">
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-center mb-2">전년 동기 대비 분야별 비중 변화</h2>
+                <p class="text-center text-gray-600 mb-8">2024년과 2025년 상반기 판매 비중을 비교하여 시장의 구조적 변화를 확인합니다.</p>
+                <div class="chart-container h-96">
+                    <canvas id="yoyBarChart"></canvas>
+                </div>
+                <div class="mt-6 p-4 bg-slate-100 rounded-lg text-center">
+                    <p class="text-gray-700 font-semibold">📈 <span class="text-teal-600">생성형 AI & SNS/콘텐츠 제작</span> 분야 비중 대폭 상승</p>
+                    <p class="text-gray-700 font-semibold">📉 <span class="text-amber-600">오피스/업무자동화 & IT/개발/기타</span> 분야 비중 축소</p>
+                </div>
+            </div>
+        </section>
 
         <section id="analysis" class="my-12">
-            <h2 class="text-3xl font-bold text-center mb-8">주요 시장 변화 및 과제</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
-                    <div class="flex-grow">
-                        <p class="text-5xl mb-4">🚀</p>
-                        <h3 class="text-xl font-bold mb-2">압도적 베스트셀러</h3>
-                        <p class="text-gray-600 mb-4">'챗GPT 활용법'과 '유튜브 쇼츠 만들기' 두 도서가 총 판매량의 약 30%를 차지하며 시장을 주도했습니다. 최신 기술 트렌드를 신속하게 포착한 기획의 성공을 입증합니다.</p>
-                    </div>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold">주요 시장 변화 및 과제</h2>
+            </div>
+            <div id="analysis-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                    <p class="text-5xl mb-4">🚀</p>
+                    <h3 class="text-xl font-bold mb-2">압도적 베스트셀러</h3>
+                    <p class="text-gray-600">'챗GPT 활용법'과 '유튜브 쇼츠 만들기' 두 도서가 총 판매량의 약 30%를 차지하며 시장을 주도했습니다. 최신 기술 트렌드를 신속하게 포착한 기획의 성공을 입증합니다.</p>
                 </div>
-
-                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
-                     <div class="flex-grow">
-                        <p class="text-5xl mb-4">📉</p>
-                        <h3 class="text-xl font-bold mb-2">기본서 시장의 변화</h3>
-                        <p class="text-gray-600 mb-4">오피스/그래픽 기본서는 여전히 일정 수요를 보였지만, 전반적으로는 판매량이 저조했습니다. 시장의 관심이 범용 기능 학습에서 특정 목적의 심화/활용법으로 이동하고 있음을 시사합니다.</p>
-                    </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                    <p class="text-5xl mb-4">📉</p>
+                    <h3 class="text-xl font-bold mb-2">기본서 시장의 변화</h3>
+                    <p class="text-gray-600">'오피스/그래픽 기본서는 여전히 일정 수요를 보였지만, 전반적으로는 판매량이 저조했습니다. 시장의 관심이 범용 기능 학습에서 특정 목적의 심화/활용법으로 이동하고 있음을 시사합니다.</p>
                 </div>
-
-                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col transform hover:scale-105 transition-transform duration-300">
-                    <div class="flex-grow">
-                        <p class="text-5xl mb-4">🔄</p>
-                        <h3 class="text-xl font-bold mb-2">명확한 세대교체</h3>
-                        <p class="text-gray-600 mb-4">기술 도서의 버전업에 따른 세대교체가 뚜렷하게 나타났습니다. '맥OS 세쿼이아판'의 성공은 신속한 개정판 출시와 기술 수명 주기 관리의 중요성을 보여줍니다.</p>
-                    </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col">
+                    <p class="text-5xl mb-4">🔄</p>
+                    <h3 class="text-xl font-bold mb-2">명확한 세대교체</h3>
+                    <p class="text-gray-600">기술 도서의 버전업에 따른 세대교체가 뚜렷하게 나타났습니다. '맥OS 세쿼이아판'의 성공은 신속한 개정판 출시와 기술 수명 주기 관리의 중요성을 보여줍니다.</p>
                 </div>
             </div>
         </section>
 
         <section id="book-ranking" class="my-12">
-            <h2 class="text-3xl font-bold text-center mb-8">개별 도서 판매 순위</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">2025년 개별 도서 판매 순위</h2>
             <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <div class="table-container">
                     <table class="w-full text-left">
@@ -142,7 +145,26 @@
                                 <th class="p-4 text-sm md:text-lg font-bold text-gray-600 text-right">판매 부수</th>
                             </tr>
                         </thead>
-                        <tbody id="book-ranking-body">
+                        <tbody id="book-ranking-body-2025">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="book-ranking-2024" class="my-12">
+            <h2 class="text-3xl font-bold text-center mb-8">2024년 개별 도서 판매 순위</h2>
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="table-container">
+                    <table class="w-full text-left">
+                        <thead class="sticky top-0 bg-white border-b-2 border-gray-200">
+                            <tr>
+                                <th class="p-4 text-sm md:text-lg font-bold text-gray-600">순위</th>
+                                <th class="p-4 text-sm md:text-lg font-bold text-gray-600">도서명</th>
+                                <th class="p-4 text-sm md:text-lg font-bold text-gray-600 text-right">판매 부수</th>
+                            </tr>
+                        </thead>
+                        <tbody id="book-ranking-body-2024">
                         </tbody>
                     </table>
                 </div>
@@ -157,190 +179,224 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const FONT_STYLE = {
-                family: 'Noto Sans KR',
-                size: 14,
-            };
-
+            const FONT_STYLE = { family: 'Noto Sans KR', size: 14 };
             const TOOLTIP_PLUGIN_CONFIG = {
                 tooltip: {
-                    bodyFont: FONT_STYLE,
-                    titleFont: FONT_STYLE,
-                    backgroundColor: '#ffffff',
-                    titleColor: '#333333',
-                    bodyColor: '#333333',
-                    borderColor: '#dddddd',
-                    borderWidth: 1,
-                    padding: 10,
+                    bodyFont: FONT_STYLE, titleFont: FONT_STYLE, backgroundColor: '#ffffff', titleColor: '#333333',
+                    bodyColor: '#333333', borderColor: '#dddddd', borderWidth: 1, padding: 10,
                     callbacks: {
                         title: function(tooltipItems) {
                             const item = tooltipItems[0];
                             let label = item.chart.data.labels[item.dataIndex];
-                            if (Array.isArray(label)) {
-                                return label.join(' ');
-                            }
-                            return label;
+                            return Array.isArray(label) ? label.join(' ') : label;
                         }
                     }
                 }
             };
             
-            const salesData = {
-                labels: ['생성형 AI', 'SNS/콘텐츠 제작', '오피스/업무자동화', '그래픽', 'IT/개발/기타'],
-                volumes: [13222, 10578, 6800, 4533, 2645], 
-                colors: ['#0A9396', '#94D2BD', '#EE9B00', '#CA6702', '#005F73']
+            const categoryLabels = ['생성형 AI', 'SNS/콘텐츠 제작', '오피스/업무자동화', '그래픽', 'IT/개발/기타'];
+            const categoryColors = {
+                '생성형 AI': 'rgba(10, 147, 150, <alpha>)',
+                'SNS/콘텐츠 제작': 'rgba(148, 210, 189, <alpha>)',
+                '오피스/업무자동화': 'rgba(238, 155, 0, <alpha>)',
+                '그래픽': 'rgba(202, 103, 2, <alpha>)',
+                'IT/개발/기타': 'rgba(0, 95, 115, <alpha>)'
             };
-            const totalSales = salesData.volumes.reduce((a, b) => a + b, 0);
-            salesData.percentages = salesData.volumes.map(v => ((v / totalSales) * 100).toFixed(1));
+            
+            const getColor = (label, alpha = 1) => categoryColors[label].replace('<alpha>', alpha);
 
-
-            const sortedCategoryData = salesData.labels.map((label, index) => ({
-                label: label,
-                volume: salesData.volumes[index],
-                color: salesData.colors[index] 
+            const salesData2025 = {
+                labels: categoryLabels,
+                volumes: [14681, 10525, 7411, 4724, 3250]
+            };
+            const totalSales2025 = salesData2025.volumes.reduce((a, b) => a + b, 0);
+            salesData2025.percentages = salesData2025.volumes.map(v => ((v / totalSales2025) * 100).toFixed(1));
+            
+            const sortedCategoryData2025 = salesData2025.labels.map((label, index) => ({
+                label: label, volume: salesData2025.volumes[index]
             })).sort((a, b) => b.volume - a.volume);
 
+            new Chart(document.getElementById('salesVolumeBarChart2025').getContext('2d'), {
+                type: 'bar', data: { labels: sortedCategoryData2025.map(d => d.label), datasets: [{
+                    label: '판매 부수', data: sortedCategoryData2025.map(d => d.volume),
+                    backgroundColor: sortedCategoryData2025.map(d => getColor(d.label)),
+                    borderWidth: 1, borderRadius: 5, barThickness: 'flex' }]
+                },
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true, grid: { display: true, drawBorder: false }, ticks: { font: FONT_STYLE }},
+                              y: { grid: { display: false }, ticks: { font: FONT_STYLE }}
+                    },
+                    plugins: { legend: { display: false }, ...TOOLTIP_PLUGIN_CONFIG }
+                }
+            });
 
-            const donutCtx = document.getElementById('marketShareDonutChart').getContext('2d');
-            new Chart(donutCtx, {
-                type: 'doughnut',
+            const salesData2024 = {
+                labels: categoryLabels,
+                volumes: [9526, 5255, 7878, 3816, 5428]
+            };
+            const totalSales2024 = salesData2024.volumes.reduce((a, b) => a + b, 0);
+            salesData2024.percentages = salesData2024.volumes.map(v => ((v / totalSales2024) * 100).toFixed(1));
+
+            const sortedCategoryData2024 = salesData2024.labels.map((label, index) => ({
+                label: label, volume: salesData2024.volumes[index]
+            })).sort((a, b) => b.volume - a.volume);
+
+            new Chart(document.getElementById('salesVolumeBarChart2024').getContext('2d'), {
+                type: 'bar', data: { labels: sortedCategoryData2024.map(d => d.label), datasets: [{
+                    label: '판매 부수', data: sortedCategoryData2024.map(d => d.volume),
+                    backgroundColor: sortedCategoryData2024.map(d => getColor(d.label)),
+                    borderWidth: 1, borderRadius: 5, barThickness: 'flex' }]
+                },
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true, grid: { display: true, drawBorder: false }, ticks: { font: FONT_STYLE }},
+                              y: { grid: { display: false }, ticks: { font: FONT_STYLE }}
+                    },
+                    plugins: { legend: { display: false }, ...TOOLTIP_PLUGIN_CONFIG }
+                }
+            });
+
+
+            // YoY Comparison Chart
+            const yoyCtx = document.getElementById('yoyBarChart').getContext('2d');
+            new Chart(yoyCtx, {
+                type: 'bar',
                 data: {
-                    labels: salesData.labels,
-                    datasets: [{
-                        label: '판매 점유율',
-                        data: salesData.percentages,
-                        backgroundColor: salesData.colors,
-                        borderColor: '#ffffff',
-                        borderWidth: 4,
-                        hoverOffset: 8
-                    }]
+                    labels: categoryLabels,
+                    datasets: [
+                        {
+                            label: '2024년 상반기 (%)',
+                            data: salesData2024.percentages,
+                            backgroundColor: categoryLabels.map(label => getColor(label, 0.5)),
+                            borderColor: categoryLabels.map(label => getColor(label, 1)),
+                            borderWidth: 1
+                        },
+                        {
+                            label: '2025년 상반기 (%)',
+                            data: salesData2025.percentages,
+                            backgroundColor: categoryLabels.map(label => getColor(label, 1)),
+                            borderColor: categoryLabels.map(label => getColor(label, 1)),
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '70%',
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            }
+                        }
+                    },
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: FONT_STYLE,
-                                padding: 20
-                            }
+                            position: 'top',
                         },
                         ...TOOLTIP_PLUGIN_CONFIG
                     }
                 }
             });
 
-            const barCtx = document.getElementById('salesVolumeBarChart').getContext('2d');
-            new Chart(barCtx, {
-                type: 'bar',
-                data: {
-                    labels: sortedCategoryData.map(d => d.label),
-                    datasets: [{
-                        label: '판매 부수',
-                        data: sortedCategoryData.map(d => d.volume),
-                        backgroundColor: sortedCategoryData.map(d => d.color),
-                        borderColor: sortedCategoryData.map(d => d.color),
-                        borderWidth: 1,
-                        borderRadius: 5,
-                        barThickness: 'flex'
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                                drawBorder: false,
-                            },
-                            ticks: {
-                                font: FONT_STYLE,
-                            }
-                        },
-                        y: {
-                            grid: {
-                                display: false,
-                            },
-                            ticks: {
-                                font: FONT_STYLE,
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                         ...TOOLTIP_PLUGIN_CONFIG
-                    }
-                }
-            });
 
-            const bookRankingData = [
-                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정2판', sales: 6598 },
-                { rank: 2, title: '된다!조회수터지는유튜브쇼츠만들기', sales: 5816 },
-                { rank: 3, title: '된다!하루만에끝내는챗GPT활용법-전면개정3판', sales: 3978 },
-                { rank: 4, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 1802 },
-                { rank: 5, title: '된다!7일실무한글', sales: 1740 },
-                { rank: 6, title: '된다!7일실무엑셀', sales: 1546 },
-                { rank: 7, title: '된다!5가지프로젝트로완성하는포토샵2025', sales: 1330 },
-                { rank: 8, title: 'Do it!스케치업with엔스케이프<전면개정판>', sales: 1325 },
-                { rank: 9, title: '된다!업무에바로쓰는구글활용법', sales: 1044 },
-                { rank: 10, title: '된다!맥북&아이맥-맥OS세쿼이아판', sales: 995 },
-                { rank: 11, title: '된다!네이버블로그상위노출-전면개정판', sales: 984 },
-                { rank: 12, title: '된다!블로그10분작성법', sales: 969 },
-                { rank: 13, title: '색잘쓰는디자이너', sales: 892 },
-                { rank: 14, title: '된다!7일구글스프레드시트', sales: 857 },
-                { rank: 15, title: '된다!실무엑셀파워포인트워드&한글', sales: 769 },
-                { rank: 16, title: '된다!하루5분아이패드기록생활', sales: 713 },
-                { rank: 17, title: '된다!생성형AI사진&이미지만들기', sales: 631 },
-                { rank: 18, title: '된다!책만들기with인디자인', sales: 589 },
-                { rank: 19, title: 'Do it!조코딩의첫웹개발', sales: 575 },
-                { rank: 20, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 457 },
-                { rank: 21, title: '된다!7일프리미어프로유튜브영상편집', sales: 381 },
-                { rank: 22, title: '된다!7일실무워드', sales: 372 },
-                { rank: 23, title: '된다!체험단부터광고수익까지돈버는블로그만들기', sales: 353 },
-                { rank: 24, title: 'Do it!웹사이트기획입문-전면개정판', sales: 337 },
-                { rank: 25, title: '된다!엑셀수식&함수', sales: 282 },
-                { rank: 26, title: '된다!하루5분노션활용법-전면개정판', sales: 248 },
-                { rank: 27, title: '된다!최반장의실무엑셀with피벗테이블', sales: 228 },
-                { rank: 28, title: '된다!뚝딱뚝딱내컴퓨터문제해결', sales: 219 },
-                { rank: 29, title: '기계는어떻게생각하는가<리커버판>', sales: 208 },
-                { rank: 30, title: '된다!미드저니', sales: 197 },
-                { rank: 31, title: '된다!파워포인트실무의신', sales: 191 },
-                { rank: 32, title: '된다!톡써니의아이패드24시간 활용법', sales: 161 },
-                { rank: 33, title: '된다!일러스트레이터-오늘바로되는입문서', sales: 143 },
-                { rank: 34, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 126 },
-                { rank: 35, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 114 },
-                { rank: 36, title: '일잘하는팀장', sales: 101 },
-                { rank: 37, title: '된다!엑셀능력자', sales: 86 },
-                { rank: 38, title: '된다!7일베가스프로영상편집<개정판>', sales: 53 },
-                { rank: 39, title: '기계는어떻게생각하는가?', sales: 42 },
-                { rank: 40, title: '된다!업무자동화를위한구글앱스스크립트', sales: 39 },
-                { rank: 41, title: '된다!포토샵디자인수업', sales: 39 },
-                { rank: 42, title: '된다!귀염뽀짝이모티콘만들기', sales: 18 },
-                { rank: 43, title: '데이터는어떻게자산이되는가?', sales: 9 },
-                { rank: 44, title: '데이터과학,무엇을하는가?', sales: 9 },
-                { rank: 45, title: '된다!NFT메타버스저작권문제해결', sales: 4 }
+            const bookRankingData2025 = [
+                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정2판', sales: 6656},
+                { rank: 2, title: '된다!조회수터지는유튜브쇼츠만들기', sales: 5849},
+                { rank: 3, title: '된다!하루만에끝내는챗GPT활용법-전면개정3판', sales: 3983},
+                { rank: 4, title: '된다!하루만에준비하는AI학교수업활용법with챗GPT...', sales: 2412},
+                { rank: 5, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 1802},
+                { rank: 6, title: '된다!7일실무한글', sales: 1741},
+                { rank: 7, title: '된다!7일실무엑셀', sales: 1544},
+                { rank: 8, title: '된다!5가지프로젝트로완성하는포토샵2025', sales: 1330},
+                { rank: 9, title: '된다!업무에바로쓰는구글활용법', sales: 1044},
+                { rank: 10, title: '된다!맥북&아이맥-맥OS세쿼이아판', sales: 996},
+                { rank: 11, title: '된다!네이버블로그상위노출-전면개정판', sales: 985},
+                { rank: 12, title: '된다!블로그10분작성법', sales: 969},
+                { rank: 13, title: '색잘쓰는디자이너', sales: 893},
+                { rank: 14, title: '된다!7일구글스프레드시트', sales: 857},
+                { rank: 15, title: '된다!실무엑셀파워포인트워드&한글', sales: 776},
+                { rank: 16, title: '당신은AI를어디까지믿을수있나요?', sales: 744},
+                { rank: 17, title: '된다!하루5분아이패드기록생활', sales: 713},
+                { rank: 18, title: '된다!생성형AI사진&이미지만들기', sales: 631},
+                { rank: 19, title: '된다!깨비의DSLR&미러리스사진수업', sales: 625},
+                { rank: 20, title: '된다!책만들기with인디자인', sales: 589},
+                { rank: 21, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 575},
+                { rank: 22, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 459},
+                { rank: 23, title: '된다!7일프리미어프로유튜브영상편집', sales: 381},
+                { rank: 24, title: '된다!7일실무워드', sales: 372},
+                { rank: 25, title: '된다!체험단부터광고수익까지돈버는블로그만들기', sales: 354},
+                { rank: 26, title: '일잘하는디자이너', sales: 286},
+                { rank: 27, title: '된다!엑셀수식&함수', sales: 282},
+                { rank: 28, title: '된다!하루5분노션활용법-전면개정판', sales: 249},
+                { rank: 29, title: '된다!뚝딱뚝딱내IT문제해결', sales: 230},
+                { rank: 30, title: '된다!최반장의실무엑셀with피벗테이블', sales: 229},
+                { rank: 31, title: '기계는어떻게생각하는가<리커버판>', sales: 209},
+                { rank: 32, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 204},
+                { rank: 33, title: '된다!미드저니', sales: 197},
+                { rank: 34, title: '된다!파워포인트실무의신', sales: 192},
+                { rank: 35, title: '된다!톡써니의아이패드24시간 활용법', sales: 161},
+                { rank: 36, title: '블록체인무엇인가?', sales: 147},
+                { rank: 37, title: '된다!일러스트레이터-오늘바로되는입문서', sales: 145},
+                { rank: 38, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 127},
+                { rank: 39, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 114},
+                { rank: 40, title: '일잘하는팀장', sales: 102}
             ];
 
-            const tableBody = document.getElementById('book-ranking-body');
-            bookRankingData.forEach((book, index) => {
-                const row = document.createElement('tr');
-                if (index % 2 !== 0) {
-                    row.className = 'bg-gray-50';
-                }
-                row.innerHTML = `
-                    <td class="p-4 font-bold text-lg ${book.rank <= 3 ? 'text-gradient' : ''}">${book.rank}</td>
-                    <td class="p-4 font-medium text-sm">${book.title}</td>
-                    <td class="p-4 text-right font-semibold text-sm">${book.sales.toLocaleString()} 부</td>
-                `;
-                tableBody.appendChild(row);
-            });
+            const bookRankingData2024 = [
+                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정판', sales: 7059},
+                { rank: 2, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 2187},
+                { rank: 3, title: '된다!7일실무엑셀', sales: 2143},
+                { rank: 4, title: '된다!7일실무한글', sales: 2013},
+                { rank: 5, title: '된다!네이버블로그상위노출-전면개정판', sales: 1851},
+                { rank: 6, title: '된다!미드저니', sales: 1346},
+                { rank: 7, title: '된다!실무엑셀파워포인트워드&한글', sales: 1257},
+                { rank: 8, title: '일잘하는팀장', sales: 1113},
+                { rank: 9, title: '된다!맥북&아이맥-맥OS소노마판', sales: 1112},
+                { rank: 10, title: '된다!생성형AI사진&이미지만들기', sales: 1069},
+                { rank: 11, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 1033},
+                { rank: 12, title: '된다!톡써니의아이패드24시간 활용법', sales: 975},
+                { rank: 13, title: '된다!깨비의DSLR&미러리스사진수업', sales: 953},
+                { rank: 14, title: '된다!하루5분노션활용법-전면개정판', sales: 744},
+                { rank: 15, title: '된다!엑셀수식&함수', sales: 721},
+                { rank: 16, title: '된다!책만들기with인디자인', sales: 548},
+                { rank: 17, title: '된다!포토샵디자인수업', sales: 490},
+                { rank: 18, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 483},
+                { rank: 19, title: '된다!7일프리미어프로유튜브영상편집', sales: 462},
+                { rank: 20, title: '나,개발자로100명취업시켰다', sales: 425},
+                { rank: 21, title: '된다!최반장의실무엑셀with피벗테이블', sales: 410},
+                { rank: 22, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 317},
+                { rank: 23, title: '된다!스마트워크를위한구글업무활용법', sales: 301},
+                { rank: 24, title: '된다!뚝딱뚝딱내IT문제해결', sales: 291},
+                { rank: 25, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 283},
+                { rank: 26, title: '된다!김메주의유튜브영상만들기<개정2판>', sales: 278},
+                { rank: 27, title: '기계는어떻게생각하는가<리커버판>', sales: 268},
+                { rank: 28, title: '일잘하는디자이너', sales: 267},
+                { rank: 29, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 251},
+                { rank: 30, title: '된다!파워포인트실무의신', sales: 209}
+            ];
+
+            function populateTable(tableId, data) {
+                const tableBody = document.getElementById(tableId);
+                tableBody.innerHTML = ''; // Clear existing rows
+                data.forEach((book, index) => {
+                    const row = document.createElement('tr');
+                    if (index % 2 !== 0) {
+                        row.className = 'bg-gray-50';
+                    }
+                    row.innerHTML = `
+                        <td class="p-4 font-bold text-lg ${book.rank <= 3 ? 'text-gradient' : ''}">${book.rank}</td>
+                        <td class="p-4 font-medium text-sm">${book.title}</td>
+                        <td class="p-4 text-right font-semibold text-sm">${book.sales.toLocaleString()} 부</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            populateTable('book-ranking-body-2025', bookRankingData2025);
+            populateTable('book-ranking-body-2024', bookRankingData2024);
         });
     </script>
 </body>

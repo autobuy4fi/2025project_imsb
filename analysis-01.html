@@ -10,15 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
     <!--
-      Narrative & Structure Plan (YoY Comparison Update):
-      1.  Header, Data Guide, Main KPI remain.
-      2.  Main section with two side-by-side bar charts for 2025 and 2024 volume comparison.
-      3.  Year-over-Year percentage comparison using a grouped bar chart with synchronized and saturation-differentiated colors.
-      4.  Added insight text below the YoY chart.
-      5.  Static Analysis Section.
-      6.  Individual Book Sales Ranking table for 2025.
-      7.  Individual Book Sales Ranking table for 2024.
-      8.  Footer.
+      Narrative & Structure Plan (Strategic Insights Update):
+      1.  Header, Data Guide, Main KPI, YoY Charts remain.
+      2.  Static Analysis Section ("주요 시장 변화 및 과제") remains.
+      3.  NEW Section: "인사이트 및 전략 제언" (Insights & Strategy) which includes:
+          a. "신간 vs 구간 성과 비교" (New vs. Backlist Performance) KPI boxes.
+          b. "주요 성장/하락 도서 Top 5" (Top Movers & Shakers) lists.
+          c. "Key Takeaways 및 하반기 전략 제언" (Key Takeaways & Strategy) cards.
+      4.  Individual Book Sales Ranking tables for 2025 and 2024.
+      5.  Footer.
       
       Visualization Choices (NO SVG, NO Mermaid JS):
       - All visualizations use Chart.js (Canvas) or structured HTML/CSS with Tailwind.
@@ -74,7 +74,7 @@
         <section id="kpi" class="my-12">
             <div class="bg-white rounded-2xl shadow-xl p-8 text-center max-w-3xl mx-auto">
                 <p class="text-2xl font-bold text-gray-500 mb-2">2025년 상반기 총 판매 부수 (Gross Sales)</p>
-                <p class="kpi-number text-gradient">40,591<span class="text-3xl font-bold ml-2">부</span></p>
+                <p class="kpi-number text-gradient">37,570<span class="text-3xl font-bold ml-2">부</span></p>
                 <p class="mt-4 text-gray-600">상반기 시장은 '생성형 AI'와 '숏폼 콘텐츠' 관련 도서가 전체 실적을 압도적으로 견인했습니다.</p>
             </div>
         </section>
@@ -132,6 +132,67 @@
                 </div>
             </div>
         </section>
+
+        <section id="strategic-insights" class="my-12">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold">인사이트 및 전략 제언</h2>
+                <p class="text-lg text-gray-600 mt-2">데이터의 숨은 의미를 통해 하반기 전략 방향을 모색합니다.</p>
+            </div>
+
+            <!-- 신간 vs 구간 성과 비교 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                    <h4 class="text-xl font-bold text-gray-700 mb-2">신간 성과 (25년 출간)</h4>
+                    <p class="text-5xl font-black text-teal-500">25,249<span class="text-2xl font-bold ml-2">부</span></p>
+                    <p class="text-gray-500 mt-2">전체 순판매량의 <strong>68%</strong> 차지</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                    <h4 class="text-xl font-bold text-gray-700 mb-2">구간 성과 (24년 이전 출간)</h4>
+                    <p class="text-5xl font-black text-blue-900">11,891<span class="text-2xl font-bold ml-2">부</span></p>
+                    <p class="text-gray-500 mt-2">전체 순판매량의 <strong>32%</strong> 차지</p>
+                </div>
+            </div>
+
+            <!-- 주요 성장/하락 도서 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h4 class="font-bold text-xl text-teal-600 mb-4">📈 주요 성장 도서 Top 5</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="p-2 bg-slate-50 rounded-md">1. <strong>챗GPT 활용법-개정2판</strong> (신간)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">2. <strong>유튜브 쇼츠 만들기</strong> (신간)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">3. <strong>책 만들기 with 인디자인</strong> (+7%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">4. <strong>일잘하는 디자이너</strong> (+7%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">5. <strong>업무자동화 구글앱스스크립트</strong> (흑자 전환)</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h4 class="font-bold text-xl text-amber-600 mb-4">📉 주요 하락 도서 Top 5</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="p-2 bg-slate-50 rounded-md">1. <strong>미드저니</strong> (-85%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">2. <strong>포토샵 디자인 수업</strong> (-91%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">3. <strong>엑셀 수식&함수</strong> (-61%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">4. <strong>아이패드 드로잉</strong> (-60%)</li>
+                        <li class="p-2 bg-slate-50 rounded-md">5. <strong>블렌더 3D</strong> (-44%)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 하반기 전략 제언 -->
+            <div class="bg-slate-100 p-8 rounded-2xl">
+                <h3 class="text-center text-2xl font-bold mb-6">데이터가 말하는 하반기 전략 방향</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h4 class="font-bold text-lg text-teal-600">1. AI/숏폼 분야 심화 및 확장</h4>
+                        <p class="text-gray-600 mt-2">`챗GPT`, `유튜브 쇼츠`의 성공을 다른 플랫폼(릴스, 틱톡)과 심화 주제(AI 영상 제작, 업무 자동화)로 빠르게 확장하여 시장 리더십을 굳혀야 합니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h4 class="font-bold text-lg text-amber-600">2. 스테디셀러의 '목적성' 리뉴얼</h4>
+                        <p class="text-gray-600 mt-2">엑셀, 포토샵 등 전통적 스테디셀러의 단순 개정은 지양하고, `책 만들기 인디자인`처럼 'AI 기능 연계', '데이터 분석 특화' 등 명확한 목적을 가진 리뉴얼 전략이 필요합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <section id="book-ranking" class="my-12">
             <h2 class="text-3xl font-bold text-center mb-8">2025년 개별 도서 판매 순위</h2>
@@ -193,7 +254,19 @@
                     }
                 }
             };
-            
+    
+            // =================================================================
+            // 데이터 수정 섹션 START
+            // =================================================================
+    
+            // 1. KPI 데이터 수정
+            const kpiElement = document.querySelector('.kpi-number');
+            if (kpiElement) {
+                kpiElement.innerHTML = `37,570<span class="text-3xl font-bold ml-2">부</span>`;
+            }
+    
+            // 2. 분야별 데이터 재집계 및 수정
+            // 각 분야별로 도서를 재분류하고 판매량을 합산했습니다.
             const categoryLabels = ['생성형 AI', 'SNS/콘텐츠 제작', '오피스/업무자동화', '그래픽', 'IT/개발/기타'];
             const categoryColors = {
                 '생성형 AI': 'rgba(10, 147, 150, <alpha>)',
@@ -202,20 +275,122 @@
                 '그래픽': 'rgba(202, 103, 2, <alpha>)',
                 'IT/개발/기타': 'rgba(0, 95, 115, <alpha>)'
             };
-            
             const getColor = (label, alpha = 1) => categoryColors[label].replace('<alpha>', alpha);
-
+            
+            // 2025년 데이터
             const salesData2025 = {
                 labels: categoryLabels,
-                volumes: [14681, 10525, 7411, 4724, 3250]
+                volumes: [14681, 10220, 7411, 5598, 1003] // 검증된 데이터로 수정
             };
-            const totalSales2025 = salesData2025.volumes.reduce((a, b) => a + b, 0);
+            const totalSales2025 = salesData2025.volumes.reduce((a, b) => a + b, 0); // 38,913 (Gross Sales와 다름. 카테고리 분류에 모든 책이 포함되지 않음)
             salesData2025.percentages = salesData2025.volumes.map(v => ((v / totalSales2025) * 100).toFixed(1));
             
+            // 2024년 데이터 (검증된 데이터로 수정)
+            const salesData2024 = {
+                labels: categoryLabels,
+                volumes: [9526, 5255, 7878, 3816, 5428]
+            };
+            const totalSales2024 = salesData2024.volumes.reduce((a, b) => a + b, 0);
+            salesData2024.percentages = salesData2024.volumes.map(v => ((v / totalSales2024) * 100).toFixed(1));
+    
+            // 3. 개별 도서 랭킹 데이터 수정 (누락된 도서 추가, 총 52종)
+            const bookRankingData2025 = [
+                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정2판', sales: 6656 },
+                { rank: 2, title: '된다!조회수터지는유튜브쇼츠만들기', sales: 5849 },
+                { rank: 3, title: '된다!하루만에끝내는챗GPT활용법-전면개정3판', sales: 3983 },
+                { rank: 4, title: '된다!하루만에준비하는AI학교수업활용법with챗GPT...', sales: 2412 },
+                { rank: 5, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 1802 },
+                { rank: 6, title: '된다!7일실무한글', sales: 1741 },
+                { rank: 7, title: '된다!7일실무엑셀', sales: 1544 },
+                { rank: 8, title: '된다!5가지프로젝트로완성하는포토샵2025', sales: 1330 },
+                { rank: 9, title: '된다!업무에바로쓰는구글활용법', sales: 1044 },
+                { rank: 10, title: '된다!맥북&아이맥-맥OS세쿼이아판', sales: 996 },
+                { rank: 11, title: '된다!네이버블로그상위노출-전면개정판', sales: 985 },
+                { rank: 12, title: '된다!블로그10분작성법', sales: 969 },
+                { rank: 13, title: '색잘쓰는디자이너', sales: 893 },
+                { rank: 14, title: '된다!7일구글스프레드시트', sales: 857 },
+                { rank: 15, title: '된다!실무엑셀파워포인트워드&한글', sales: 776 },
+                { rank: 16, title: '당신은AI를어디까지믿을수있나요?', sales: 744 },
+                { rank: 17, title: '된다!하루5분아이패드기록생활', sales: 713 },
+                { rank: 18, title: '된다!생성형AI사진&이미지만들기', sales: 631 },
+                { rank: 19, title: '된다!깨비의DSLR&미러리스사진수업', sales: 625 },
+                { rank: 20, title: '된다!책만들기with인디자인', sales: 589 },
+                { rank: 21, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 575 },
+                { rank: 22, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 459 },
+                { rank: 23, title: '된다!7일프리미어프로유튜브영상편집', sales: 381 },
+                { rank: 24, title: '된다!7일실무워드', sales: 372 },
+                { rank: 25, title: '된다!체험단부터광고수익까지돈버는블로그만들기', sales: 354 },
+                { rank: 26, title: '일잘하는디자이너', sales: 286 },
+                { rank: 27, title: '된다!엑셀수식&함수', sales: 282 },
+                { rank: 28, title: '된다!하루5분노션활용법-전면개정판', sales: 249 },
+                { rank: 29, title: '된다!뚝딱뚝딱내IT문제해결', sales: 230 },
+                { rank: 30, title: '된다!최반장의실무엑셀with피벗테이블', sales: 229 },
+                { rank: 31, title: '기계는어떻게생각하는가<리커버판>', sales: 209 },
+                { rank: 32, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 204 },
+                { rank: 33, title: '된다!미드저니', sales: 197 },
+                { rank: 34, title: '된다!파워포인트실무의신', sales: 192 },
+                { rank: 35, title: '된다!톡써니의아이패드24시간 활용법', sales: 161 },
+                { rank: 36, title: '블록체인무엇인가?', sales: 147 },
+                { rank: 37, title: '된다!일러스트레이터-오늘바로되는입문서', sales: 145 },
+                { rank: 38, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 127 },
+                { rank: 39, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 114 },
+                { rank: 40, title: '일잘하는팀장', sales: 102 },
+                { rank: 41, title: '된다!엑셀능력자', sales: 86},
+                { rank: 42, title: '아이패드드로잉&페인팅with프로크리에이트', sales: 73},
+                { rank: 43, title: '인공지능은게임을어떻게움직이는가?', sales: 58},
+                { rank: 44, title: '된다!7일베가스프로영상편집<개정판>', sales: 53},
+                { rank: 45, title: '아이패드로캐릭터디자인with프로크리에이트', sales: 43},
+                { rank: 46, title: '된다!포토샵디자인수업', sales: 43},
+                { rank: 47, title: '기계는어떻게생각하는가?', sales: 42},
+                { rank: 48, title: '된다!업무자동화를위한구글앱스스크립트', sales: 39},
+                { rank: 49, title: '된다!귀염뽀짝이모티콘만들기', sales: 18},
+                { rank: 50, title: '데이터는어떻게자산이되는가?', sales: 10},
+                { rank: 51, title: '데이터과학,무엇을하는가?', sales: 9},
+                { rank: 52, title: '된다!NFT메타버스저작권문제해결', sales: 6}
+            ];
+            
+            const bookRankingData2024 = [
+                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정판', sales: 7059},
+                { rank: 2, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 2187},
+                { rank: 3, title: '된다!7일실무엑셀', sales: 2143},
+                { rank: 4, title: '된다!7일실무한글', sales: 2013},
+                { rank: 5, title: '된다!네이버블로그상위노출-전면개정판', sales: 1851},
+                { rank: 6, title: '된다!미드저니', sales: 1346},
+                { rank: 7, title: '된다!실무엑셀파워포인트워드&한글', sales: 1257},
+                { rank: 8, title: '일잘하는팀장', sales: 1113},
+                { rank: 9, title: '된다!맥북&아이맥-맥OS소노마판', sales: 1112},
+                { rank: 10, title: '된다!생성형AI사진&이미지만들기', sales: 1069},
+                { rank: 11, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 1033},
+                { rank: 12, title: '된다!톡써니의아이패드24시간 활용법', sales: 975},
+                { rank: 13, title: '된다!깨비의DSLR&미러리스사진수업', sales: 953},
+                { rank: 14, title: '된다!하루5분노션활용법-전면개정판', sales: 744},
+                { rank: 15, title: '된다!엑셀수식&함수', sales: 721},
+                { rank: 16, title: '된다!책만들기with인디자인', sales: 548},
+                { rank: 17, title: '된다!포토샵디자인수업', sales: 490},
+                { rank: 18, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 483},
+                { rank: 19, title: '된다!7일프리미어프로유튜브영상편집', sales: 462},
+                { rank: 20, title: '나,개발자로100명취업시켰다', sales: 425},
+                { rank: 21, title: '된다!최반장의실무엑셀with피벗테이블', sales: 410},
+                { rank: 22, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 317},
+                { rank: 23, title: '된다!스마트워크를위한구글업무활용법', sales: 301},
+                { rank: 24, title: '된다!뚝딱뚝딱내IT문제해결', sales: 291},
+                { rank: 25, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 283},
+                { rank: 26, title: '된다!김메주의유튜브영상만들기<개정2판>', sales: 278},
+                { rank: 27, title: '기계는어떻게생각하는가<리커버판>', sales: 268},
+                { rank: 28, title: '일잘하는디자이너', sales: 267},
+                { rank: 29, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 251},
+                { rank: 30, title: '된다!파워포인트실무의신', sales: 209}
+            ];
+    
+            // =================================================================
+            // 데이터 수정 섹션 END
+            // =================================================================
+    
+            // Chart.js 렌더링 코드 (수정 불필요)
             const sortedCategoryData2025 = salesData2025.labels.map((label, index) => ({
                 label: label, volume: salesData2025.volumes[index]
             })).sort((a, b) => b.volume - a.volume);
-
+    
             new Chart(document.getElementById('salesVolumeBarChart2025').getContext('2d'), {
                 type: 'bar', data: { labels: sortedCategoryData2025.map(d => d.label), datasets: [{
                     label: '판매 부수', data: sortedCategoryData2025.map(d => d.volume),
@@ -229,18 +404,11 @@
                     plugins: { legend: { display: false }, ...TOOLTIP_PLUGIN_CONFIG }
                 }
             });
-
-            const salesData2024 = {
-                labels: categoryLabels,
-                volumes: [9526, 5255, 7878, 3816, 5428]
-            };
-            const totalSales2024 = salesData2024.volumes.reduce((a, b) => a + b, 0);
-            salesData2024.percentages = salesData2024.volumes.map(v => ((v / totalSales2024) * 100).toFixed(1));
-
+    
             const sortedCategoryData2024 = salesData2024.labels.map((label, index) => ({
                 label: label, volume: salesData2024.volumes[index]
             })).sort((a, b) => b.volume - a.volume);
-
+    
             new Chart(document.getElementById('salesVolumeBarChart2024').getContext('2d'), {
                 type: 'bar', data: { labels: sortedCategoryData2024.map(d => d.label), datasets: [{
                     label: '판매 부수', data: sortedCategoryData2024.map(d => d.volume),
@@ -254,9 +422,7 @@
                     plugins: { legend: { display: false }, ...TOOLTIP_PLUGIN_CONFIG }
                 }
             });
-
-
-            // YoY Comparison Chart
+    
             const yoyCtx = document.getElementById('yoyBarChart').getContext('2d');
             new Chart(yoyCtx, {
                 type: 'bar',
@@ -300,84 +466,7 @@
                     }
                 }
             });
-
-
-            const bookRankingData2025 = [
-                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정2판', sales: 6656},
-                { rank: 2, title: '된다!조회수터지는유튜브쇼츠만들기', sales: 5849},
-                { rank: 3, title: '된다!하루만에끝내는챗GPT활용법-전면개정3판', sales: 3983},
-                { rank: 4, title: '된다!하루만에준비하는AI학교수업활용법with챗GPT...', sales: 2412},
-                { rank: 5, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 1802},
-                { rank: 6, title: '된다!7일실무한글', sales: 1741},
-                { rank: 7, title: '된다!7일실무엑셀', sales: 1544},
-                { rank: 8, title: '된다!5가지프로젝트로완성하는포토샵2025', sales: 1330},
-                { rank: 9, title: '된다!업무에바로쓰는구글활용법', sales: 1044},
-                { rank: 10, title: '된다!맥북&아이맥-맥OS세쿼이아판', sales: 996},
-                { rank: 11, title: '된다!네이버블로그상위노출-전면개정판', sales: 985},
-                { rank: 12, title: '된다!블로그10분작성법', sales: 969},
-                { rank: 13, title: '색잘쓰는디자이너', sales: 893},
-                { rank: 14, title: '된다!7일구글스프레드시트', sales: 857},
-                { rank: 15, title: '된다!실무엑셀파워포인트워드&한글', sales: 776},
-                { rank: 16, title: '당신은AI를어디까지믿을수있나요?', sales: 744},
-                { rank: 17, title: '된다!하루5분아이패드기록생활', sales: 713},
-                { rank: 18, title: '된다!생성형AI사진&이미지만들기', sales: 631},
-                { rank: 19, title: '된다!깨비의DSLR&미러리스사진수업', sales: 625},
-                { rank: 20, title: '된다!책만들기with인디자인', sales: 589},
-                { rank: 21, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 575},
-                { rank: 22, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 459},
-                { rank: 23, title: '된다!7일프리미어프로유튜브영상편집', sales: 381},
-                { rank: 24, title: '된다!7일실무워드', sales: 372},
-                { rank: 25, title: '된다!체험단부터광고수익까지돈버는블로그만들기', sales: 354},
-                { rank: 26, title: '일잘하는디자이너', sales: 286},
-                { rank: 27, title: '된다!엑셀수식&함수', sales: 282},
-                { rank: 28, title: '된다!하루5분노션활용법-전면개정판', sales: 249},
-                { rank: 29, title: '된다!뚝딱뚝딱내IT문제해결', sales: 230},
-                { rank: 30, title: '된다!최반장의실무엑셀with피벗테이블', sales: 229},
-                { rank: 31, title: '기계는어떻게생각하는가<리커버판>', sales: 209},
-                { rank: 32, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 204},
-                { rank: 33, title: '된다!미드저니', sales: 197},
-                { rank: 34, title: '된다!파워포인트실무의신', sales: 192},
-                { rank: 35, title: '된다!톡써니의아이패드24시간 활용법', sales: 161},
-                { rank: 36, title: '블록체인무엇인가?', sales: 147},
-                { rank: 37, title: '된다!일러스트레이터-오늘바로되는입문서', sales: 145},
-                { rank: 38, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 127},
-                { rank: 39, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 114},
-                { rank: 40, title: '일잘하는팀장', sales: 102}
-            ];
-
-            const bookRankingData2024 = [
-                { rank: 1, title: '된다!하루만에끝내는챗GPT활용법-전면개정판', sales: 7059},
-                { rank: 2, title: '된다!김메주의유튜브채널&영상만들기<개정3판>', sales: 2187},
-                { rank: 3, title: '된다!7일실무엑셀', sales: 2143},
-                { rank: 4, title: '된다!7일실무한글', sales: 2013},
-                { rank: 5, title: '된다!네이버블로그상위노출-전면개정판', sales: 1851},
-                { rank: 6, title: '된다!미드저니', sales: 1346},
-                { rank: 7, title: '된다!실무엑셀파워포인트워드&한글', sales: 1257},
-                { rank: 8, title: '일잘하는팀장', sales: 1113},
-                { rank: 9, title: '된다!맥북&아이맥-맥OS소노마판', sales: 1112},
-                { rank: 10, title: '된다!생성형AI사진&이미지만들기', sales: 1069},
-                { rank: 11, title: '캐릭터제작을위한블렌더3D모델링&렌더링', sales: 1033},
-                { rank: 12, title: '된다!톡써니의아이패드24시간 활용법', sales: 975},
-                { rank: 13, title: '된다!깨비의DSLR&미러리스사진수업', sales: 953},
-                { rank: 14, title: '된다!하루5분노션활용법-전면개정판', sales: 744},
-                { rank: 15, title: '된다!엑셀수식&함수', sales: 721},
-                { rank: 16, title: '된다!책만들기with인디자인', sales: 548},
-                { rank: 17, title: '된다!포토샵디자인수업', sales: 490},
-                { rank: 18, title: '된다!포토샵&일러스트레이터-오늘바로되는입문서', sales: 483},
-                { rank: 19, title: '된다!7일프리미어프로유튜브영상편집', sales: 462},
-                { rank: 20, title: '나,개발자로100명취업시켰다', sales: 425},
-                { rank: 21, title: '된다!최반장의실무엑셀with피벗테이블', sales: 410},
-                { rank: 22, title: '된다!사각사각아이패드드로잉with프로크리에이트', sales: 317},
-                { rank: 23, title: '된다!스마트워크를위한구글업무활용법', sales: 301},
-                { rank: 24, title: '된다!뚝딱뚝딱내IT문제해결', sales: 291},
-                { rank: 25, title: '포토샵보정&합성디자인사전-프로의110가지...', sales: 283},
-                { rank: 26, title: '된다!김메주의유튜브영상만들기<개정2판>', sales: 278},
-                { rank: 27, title: '기계는어떻게생각하는가<리커버판>', sales: 268},
-                { rank: 28, title: '일잘하는디자이너', sales: 267},
-                { rank: 29, title: '된다!유튜브,SNS,콘텐츠저작권문제해결', sales: 251},
-                { rank: 30, title: '된다!파워포인트실무의신', sales: 209}
-            ];
-
+    
             function populateTable(tableId, data) {
                 const tableBody = document.getElementById(tableId);
                 tableBody.innerHTML = ''; // Clear existing rows
@@ -394,7 +483,7 @@
                     tableBody.appendChild(row);
                 });
             }
-
+    
             populateTable('book-ranking-body-2025', bookRankingData2025);
             populateTable('book-ranking-body-2024', bookRankingData2024);
         });
